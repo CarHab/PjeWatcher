@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -7,22 +8,29 @@ using System.Threading.Tasks;
 namespace Watcher;
 public class Retriever
 {
-    public string GetText(string url)
+    public async Task<string> GetText(string url)
     {
-        Task<string> html = CallUrl(url);
+        string html = await CallUrl(url);
 
-        string output = ParseHtml(html.Result);
+        string output = ParseHtml(html);
 
         return output;
     }
+
     public async Task<string> CallUrl(string url)
     {
-        HttpClient client = new();
-        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13;
-        client.DefaultRequestHeaders.Accept.Clear();
-        var response = client.GetStringAsync(url);
-        Thread.Sleep(1000);
-        return await response;
+        try
+        {
+            HttpClient client = new();
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13;
+            client.DefaultRequestHeaders.Accept.Clear();
+            var response = await client.GetStringAsync(url);
+            return response;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
     }
 
     public string ParseHtml(string html)

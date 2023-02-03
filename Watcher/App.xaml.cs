@@ -12,4 +12,8 @@ namespace Watcher;
 /// </summary>
 public partial class App : Application
 {
+    public static void OnMainWindowClose()
+    {
+        Current.Shutdown();
+    }
 }

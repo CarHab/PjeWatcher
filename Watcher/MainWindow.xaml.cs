@@ -5,12 +5,10 @@ using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace Watcher;
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
+
 public partial class MainWindow : Window
 {
-    public Retriever? Retriever { get; set; }
+    public Retriever? DataAccess { get; set; }
     public string CurrentUrl { get; set; } = "";
     public DispatcherTimer? DispatcherTimer { get; set; } = null;
     public MainWindow()
@@ -28,7 +26,7 @@ public partial class MainWindow : Window
 
         if (CurrentUrl is not "")
         {
-            Retriever = new();
+            DataAccess = new();
             DispatcherTimer = new();
             DispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
             DispatcherTimer.Start();
@@ -44,9 +42,9 @@ public partial class MainWindow : Window
         CommandManager.InvalidateRequerySuggested();
     }
 
-    public void GetText()
+    public async void GetText()
     {
-        string responseText = Retriever.GetText(CurrentUrl);
+        string responseText = await DataAccess.GetText(CurrentUrl);
         string currentTime = DateTime.Now.ToShortTimeString();
 
         string fullText = $"{currentTime} - {responseText}";
