@@ -1,0 +1,38 @@
+﻿<Window x:Class="Watcher.Views.InputWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Watcher.Views"
+        mc:Ignorable="d"
+        Title="PjeWatcher" Height="150" MinWidth="450" Width="450" Background="#FFEEEEEE" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+            <Label DockPanel.Dock="Left"  VerticalAlignment="Center">N° Processo</Label>
+            <TextBox VerticalContentAlignment="Center" x:Name="NumberInput" VerticalAlignment="Center" Height="30" TextChanged="NumberInput_TextChanged"/>
+        </DockPanel>
+
+        <DockPanel VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
+            <Label>Executar em segundo plano</Label>
+            <CheckBox VerticalAlignment="Center" ></CheckBox>
+        </DockPanel>
+
+        <DockPanel LastChildFill="False" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" MinHeight="30">
+            <Button x:Name="SettingsButton" Margin="0,0,10,0" MinWidth="100" Click="SettingsButton_Click">Configurações</Button>
+            <Button x:Name="StartButton" MinWidth="100" IsEnabled="False" Click="StartButton_Click">Iniciar</Button>
+        </DockPanel>
+    </Grid>
+</Window>

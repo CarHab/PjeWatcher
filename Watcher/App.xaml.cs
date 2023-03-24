@@ -2,18 +2,28 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Watcher.Views;
 
 namespace Watcher;
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
 public partial class App : Application
-{
-    public static void OnMainWindowClose()
+{ 
+    protected override void OnStartup(StartupEventArgs e)
     {
-        Current.Shutdown();
+        try
+        {
+            var mainView = new InputWindow();
+            mainView.Show();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+        }
     }
 }
