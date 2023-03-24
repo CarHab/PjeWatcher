@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -40,13 +41,22 @@ public partial class MainWindow : Window
         CommandManager.InvalidateRequerySuggested();
     }
 
-    public async void GetText()
+    public async Task GetText()
     {
-        string responseText = await DataAccess.GetText();
         string currentTime = DateTime.Now.ToShortTimeString();
+        try
+        {
+            string responseText = await DataAccess.GetText();
 
-        string fullText = $"{currentTime} - {responseText}";
+            string fullText = $"{currentTime} - {responseText}";
 
-        Output.Text = fullText;
+            Output.Text = fullText;
+        }
+        catch (Exception e)
+        {
+            string fullText = $"{currentTime} - {e.Message}";
+
+            Output.Text = fullText;
+        }
     }
 }

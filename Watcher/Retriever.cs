@@ -24,43 +24,65 @@ public class Retriever
 
     public void GetUrl(string code)
     {
-        EdgeOptions options = new();
-        options.AddArgument("--headless");
-        options.AddArgument("--log-level=3");
+        if (!Settings.IsLinkIsStale())
+        {
+            _url = Settings.GetLastLink();
+            return;
+        }
 
-        EdgeDriver driver = new($"{Directory.GetCurrentDirectory()}\\msedgedriver.exe", options);
+        try
+        {
+            EdgeOptions options = new();
+            options.AddArgument("--headless");
+            options.AddArgument("--log-level=3");
 
-        driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMilliseconds(2000);
+            EdgeDriver driver = new($"{Directory.GetCurrentDirectory()}\\msedgedriver.exe", options);
 
-        driver.Navigate().GoToUrl(_baseUrl);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMilliseconds(2000);
 
-        var textBox = driver.FindElement(By.Id("fPP:numProcesso-inputNumeroProcessoDecoration:numProcesso-inputNumeroProcesso"));
-        textBox.SendKeys(code);
+            driver.Navigate().GoToUrl(_baseUrl);
 
-        var submitButton = driver.FindElement(By.Id("fPP:searchProcessos"));
-        submitButton.Click();
+            var textBox = driver.FindElement(By.Id("fPP:numProcesso-inputNumeroProcessoDecoration:numProcesso-inputNumeroProcesso"));
+            textBox.SendKeys(code);
 
-        var linkElement = driver.FindElement(By.XPath("//*[@id=\"fPP:processosTable:8964583:j_id229\"]/a"));
+            var submitButton = driver.FindElement(By.Id("fPP:searchProcessos"));
+            submitButton.Click();
 
-        var linkNumber = linkElement.GetAttribute("onclick").Split("=")[1].Split("'")[0];
+            var linkElement = driver.FindElement(By.XPath("//*[@id=\"fPP:processosTable:8964583:j_id229\"]/a"));
 
-        _url = $"https://pje1g.trf1.jus.br/consultapublica/ConsultaPublica/DetalheProcessoConsultaPublica/listView.seam?ca={linkNumber}";
+            var linkNumber = linkElement.GetAttribute("onclick").Split("=")[1].Split("'")[0];
 
-        driver.Quit();
+            _url = $"https://pje1g.trf1.jus.br/consultapublica/ConsultaPublica/DetalheProcessoConsultaPublica/listView.seam?ca={linkNumber}";
+
+            Settings.SetLastLink(_url);
+
+            driver.Quit();
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Um erro ocorreu. Tentando novamente...", e);
+        }
     }
 
     public async Task<string> GetText()
     {
-        if(_url is null)
+        try
         {
-            GetUrl(_code);
+            if (_url is null)
+            {
+                GetUrl(_code);
+            }
+
+            string html = await CallUrl();
+
+            string output = ParseHtml(html);
+
+            return output;
         }
-
-        string html = await CallUrl();
-
-        string output = ParseHtml(html);
-
-        return output;
+        catch (Exception e)
+        {
+            throw new Exception("Um erro ocorreu. Tentando novamente...", e);
+        }
     }
 
     public async Task<string> CallUrl()
@@ -75,18 +97,25 @@ public class Retriever
         }
         catch (Exception e)
         {
-            return e.Message;
+            throw new Exception("Um erro ocorreu. Tentando novamente...", e);
         }
     }
 
     public string ParseHtml(string html)
     {
-        HtmlDocument htmlDoc = new();
-        htmlDoc.LoadHtml(html);
+        try
+        {
+            HtmlDocument htmlDoc = new();
+            htmlDoc.LoadHtml(html);
 
-        HtmlNode htmlBody = htmlDoc.DocumentNode.SelectSingleNode("//*[@id=\"j_id134:processoEvento:0:j_id498\"]");
+            HtmlNode htmlBody = htmlDoc.DocumentNode.SelectSingleNode("//*[@id=\"j_id134:processoEvento:0:j_id498\"]");
 
-        string decodedText = WebUtility.HtmlDecode(htmlBody.InnerText);
-        return decodedText;
+            string decodedText = WebUtility.HtmlDecode(htmlBody.InnerText);
+            return decodedText;
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Um erro ocorreu. Tentando novamente...", e);
+        }
     }
 }

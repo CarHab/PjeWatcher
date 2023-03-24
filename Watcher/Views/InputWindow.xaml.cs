@@ -27,7 +27,7 @@ public partial class InputWindow : Window
         if (!File.Exists($"{Directory.GetCurrentDirectory()}\\settings.json"))
             Settings.CreateEmptySettings();
 
-        NumberInput.Text = Settings.GetFields().Item2;
+        NumberInput.Text = Settings.GetFields().CaseNumber;
         if (NumberInput.Text != "")
             StartButton.IsEnabled = true;
     }

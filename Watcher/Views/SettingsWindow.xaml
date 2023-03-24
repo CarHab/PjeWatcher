@@ -5,38 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Watcher.Views"
         mc:Ignorable="d"
-        Title="Configurações" Height="250" MinHeight="250" Width="300" MinWidth="300" WindowStartupLocation="CenterScreen">
+        Title="Configurações" Height="260" MinHeight="260" Width="300" MinWidth="300" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="5"></RowDefinition>
-                <RowDefinition Height="0.3*"></RowDefinition>
-                <RowDefinition Height="0.3*"></RowDefinition>
-                <RowDefinition Height="0.3*"></RowDefinition>
+                <RowDefinition Height="0.2*"></RowDefinition>
+                <RowDefinition Height="0.2*"></RowDefinition>
+                <RowDefinition Height="0.2*"></RowDefinition>
                 <RowDefinition Height="5"></RowDefinition>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="10"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Row="1" Grid.Column="1">
+            <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
                 <Label>Email</Label>
                 <TextBox Height="30" x:Name="EmailInput" VerticalContentAlignment="Center"></TextBox>
             </StackPanel>
 
-            <StackPanel Grid.Row="2" Grid.Column="1">
+            <StackPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
                 <Label>N° Processo</Label>
                 <TextBox Height="30" x:Name="NumberInput"  VerticalContentAlignment="Center"></TextBox>
             </StackPanel>
 
-            <DockPanel Margin="0,5,0,0" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center">
-                <Label>Notificação por Email</Label>
-                <CheckBox x:Name="NotifyCheckBox" VerticalAlignment="Center"></CheckBox>
-                <Button x:Name="SaveButton" MinWidth="100" MinHeight="30" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SaveButton_Click">Salvar</Button>
-            </DockPanel>
+            <StackPanel Grid.Row="3" Grid.Column="1" VerticalAlignment="Center">
+                <Label>Notificações</Label>
+                <DockPanel>
+                    <Label>Email</Label>
+                    <CheckBox HorizontalAlignment="Right" x:Name="EmailNotifyCheckBox" VerticalAlignment="Center"></CheckBox>
+                </DockPanel>
+
+                <DockPanel HorizontalAlignment="Stretch">
+                    <Label>Desktop</Label>
+                    <CheckBox  HorizontalAlignment="Right" x:Name="DesktopNotifyCheckBox" VerticalAlignment="Center"></CheckBox>
+                </DockPanel>
+            </StackPanel>
+
+            <Button Grid.Row="3" Grid.Column="2" x:Name="SaveButton" MinWidth="100" MinHeight="30" HorizontalAlignment="Center" VerticalAlignment="Top"  Click="SaveButton_Click" RenderTransformOrigin="0.493,0.924" Margin="0,30,0,0">Salvar</Button>
         </Grid>
     </Grid>
 </Window>

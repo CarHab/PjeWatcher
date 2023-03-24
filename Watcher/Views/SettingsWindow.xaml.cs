@@ -23,14 +23,16 @@ public partial class SettingsWindow : Window
         InitializeComponent();
         var fields = Settings.GetFields();
 
-        EmailInput.Text = fields.Item1;
-        NumberInput.Text = fields.Item2;
-        NotifyCheckBox.IsChecked = fields.Item3;
+        EmailInput.Text = fields.DestinationEmail;
+        NumberInput.Text = fields.CaseNumber;
+        EmailNotifyCheckBox.IsChecked = fields.NotifyEmail;
+        DesktopNotifyCheckBox.IsChecked = fields.NotifyDesktop;
     }
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
-        Settings.SetNotify(NotifyCheckBox.IsChecked ?? false);
+        Settings.NotifyEmail = EmailNotifyCheckBox.IsChecked ?? false;
+        Settings.NotifyDesktop = DesktopNotifyCheckBox.IsChecked ?? false;
         Settings.SetEmail(EmailInput.Text);
         Settings.SetCaseNumber(NumberInput.Text);
 
