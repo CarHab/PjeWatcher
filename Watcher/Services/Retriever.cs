@@ -10,7 +10,7 @@ using System.Security.Policy;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Watcher;
+namespace Watcher.Services;
 public class Retriever
 {
     private readonly string _baseUrl = "https://pje1g.trf1.jus.br/consultapublica/ConsultaPublica/listView.seam";

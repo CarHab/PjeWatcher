@@ -3,7 +3,7 @@ using System.IO;
 using System.Net.NetworkInformation;
 using System.Text.Json;
 
-namespace Watcher;
+namespace Watcher.Services;
 public static class Settings
 {
     public static string DestinationEmail = "";
@@ -70,7 +70,7 @@ public static class Settings
         string serialized = JsonSerializer.Serialize(emptySettings);
 
         File.WriteAllText(_filePath, serialized);
-    } 
+    }
 
     public static SettingsModel GetFields()
     {
