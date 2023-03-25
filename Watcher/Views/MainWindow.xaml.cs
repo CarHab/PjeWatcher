@@ -1,6 +1,6 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.DevTools.V109.CacheStorage;
+﻿using Microsoft.Toolkit.Uwp.Notifications;
 using System;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -24,6 +24,7 @@ public partial class MainWindow : Window
         Top = SystemParameters.WorkArea.Height - Height;
         CaseNumber = caseNumber;
         Start();
+
     }
 
     private void Start()
@@ -34,7 +35,7 @@ public partial class MainWindow : Window
         DispatcherTimer = new();
         DispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
         DispatcherTimer.Start();
-        DispatcherTimer.Interval = new TimeSpan(0, 0, 2);
+        DispatcherTimer.Interval = new TimeSpan(0, 0, 10);
     }
 
     private void DispatcherTimer_Tick(object sender, EventArgs e)
@@ -56,6 +57,17 @@ public partial class MainWindow : Window
             {
                 MailService mailService = new(responseText);
                 await mailService.SendEmail();
+            }
+
+            if (Settings.NotifyDesktop && !_first && responseText != _currentText)
+            {
+                new ToastContentBuilder()
+                .AddButton(new ToastButton()
+                    .SetContent("Abrir")
+                    .SetProtocolActivation(new Uri(Settings.GetLastLink())))
+                .AddText("PJE Watcher")
+                .AddText($"Nova atualização: {responseText}")
+                .Show();
             }
 
             _currentText = responseText;
