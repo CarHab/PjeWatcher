@@ -52,7 +52,7 @@ public partial class MainWindow : Window
         {
             string responseText = await DataAccess.GetText();
 
-            if (!_first && responseText != _currentText)
+            if (Settings.NotifyEmail && !_first && responseText != _currentText)
             {
                 MailService mailService = new(responseText);
                 await mailService.SendEmail();
