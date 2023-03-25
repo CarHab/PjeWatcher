@@ -24,7 +24,6 @@ public partial class SettingsWindow : Window
         InitializeComponent();
         var fields = Settings.GetFields();
 
-        EmailInput.Text = fields.DestinationEmail;
         NumberInput.Text = fields.CaseNumber;
         EmailNotifyCheckBox.IsChecked = fields.NotifyEmail;
         DesktopNotifyCheckBox.IsChecked = fields.NotifyDesktop;
@@ -34,9 +33,14 @@ public partial class SettingsWindow : Window
     {
         Settings.NotifyEmail = EmailNotifyCheckBox.IsChecked ?? false;
         Settings.NotifyDesktop = DesktopNotifyCheckBox.IsChecked ?? false;
-        Settings.SetEmail(EmailInput.Text);
         Settings.SetCaseNumber(NumberInput.Text);
 
         Close();
+    }
+
+    private void MailSettingsButton_Click(object sender, RoutedEventArgs e)
+    {
+        EmailConfigView emailConfigView = new();
+        emailConfigView.Show();
     }
 }

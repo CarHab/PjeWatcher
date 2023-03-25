@@ -1,0 +1,52 @@
+﻿<Window x:Class="Watcher.Views.EmailConfigView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Watcher.Views"
+        mc:Ignorable="d"
+        Title="Configurar Email" Height="265" MinHeight="265" Width="354" MinWidth="354"  WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Margin="5,0,5,0"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="0">
+            <Label>Remetente</Label>
+            <TextBox x:Name="FromInput" Height="30" VerticalContentAlignment="Center" TextChanged="FromInput_TextChanged"></TextBox>
+
+            <Label>Destinatário</Label>
+            <TextBox x:Name="ToInput"  Height="30" VerticalContentAlignment="Center" TextChanged="ToInput_TextChanged"></TextBox>
+        </StackPanel>
+
+        <StackPanel Margin="5,0,5,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1">
+            <Label>Senha Remetente</Label>
+            <PasswordBox x:Name="PasswordInput" Height="30" VerticalContentAlignment="Center" LostFocus="PasswordInput_LostFocus"></PasswordBox>
+
+            <Label>SMTP</Label>
+            <TextBox x:Name="SMTPInput"  Height="30" VerticalContentAlignment="Center" TextChanged="SMTPInput_TextChanged"></TextBox>
+            
+        </StackPanel>
+
+        <StackPanel Margin="5,-10,5,0" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0">
+            <Label>Porta</Label>
+            <TextBox x:Name="PortInput"  Height="30" VerticalContentAlignment="Center" TextChanged="PortInput_TextChanged"></TextBox>
+            
+            <DockPanel Margin="0,10,0,0">
+                <Label>Habilitar SSL</Label>
+                <CheckBox x:Name="SSLCheckBox" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="SSLCheckBox_Checked"></CheckBox>
+            </DockPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button x:Name="HelpButton" Width="100" Height="30" Click="HelpButton_Click">Ajuda</Button>
+            <Button x:Name="SaveButton" Width="100" Height="30" Margin="0,10,0,0" Click="SaveButton_Click">Salvar</Button>
+        </StackPanel>
+    </Grid>
+</Window>

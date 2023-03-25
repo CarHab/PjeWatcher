@@ -5,11 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Watcher.Views"
         mc:Ignorable="d"
-        Title="Configurações" Height="305" MinHeight="335" Width="300" MinWidth="300" WindowStartupLocation="CenterScreen">
+        Title="Configurações" Height="220" MinHeight="220" Width="300" MinWidth="300" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
@@ -18,18 +16,13 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        
-        <StackPanel Margin="5,0,5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center">
-            <Label>Email</Label>
-            <TextBox Height="30" x:Name="EmailInput" VerticalContentAlignment="Center"></TextBox>
-        </StackPanel>
 
-        <StackPanel Margin="5,0,5,0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center">
+        <StackPanel Margin="5,0,5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center">
             <Label>N° Processo</Label>
             <TextBox Height="30" x:Name="NumberInput"  VerticalContentAlignment="Center"></TextBox>
         </StackPanel>
 
-        <StackPanel Margin="5,0,5,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">
+        <StackPanel Margin="5,0,5,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
             <Label>Notificações</Label>
             <DockPanel>
                 <Label>Email</Label>
@@ -42,10 +35,9 @@
             </DockPanel>
         </StackPanel>
 
-        <Button Grid.Row="2" Grid.Column="1" Width="100" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center">Configurar Email</Button>
-
-        <StackPanel Margin="0,20,0,0" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
-            <Button x:Name="SaveButton"  MinHeight="30"  Click="SaveButton_Click" Width="104">Salvar</Button>
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Margin="0,0,0,5" x:Name="MailSettingsButton" Grid.Row="1" Grid.Column="1" Width="100" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" Click="MailSettingsButton_Click">Configurar Email</Button>
+            <Button Margin="0,5,0,0" x:Name="SaveButton"  MinHeight="30"  Click="SaveButton_Click" Width="100">Salvar</Button>
         </StackPanel>
     </Grid>
 </Window>

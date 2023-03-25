@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Net.NetworkInformation;
 using System.Text.Json;
 
 namespace Watcher.Services;
@@ -15,25 +14,6 @@ public static class Settings
     {
         if (!File.Exists(_filePath))
             CreateEmptySettings();
-    }
-
-    public static void SetEmail(string email)
-    {
-        if (!File.Exists(_filePath))
-            CreateEmptySettings();
-
-        string jsonString = File.ReadAllText(_filePath);
-        SettingsModel deserialized = JsonSerializer.Deserialize<SettingsModel>(jsonString);
-
-        deserialized.DestinationEmail = email;
-        deserialized.NotifyEmail = NotifyEmail;
-        deserialized.NotifyDesktop = NotifyDesktop;
-
-        string serialized = JsonSerializer.Serialize(deserialized);
-
-        File.WriteAllText(_filePath, serialized);
-        DestinationEmail = email;
-
     }
 
     public static void SetCaseNumber(string caseNumber)
@@ -56,16 +36,7 @@ public static class Settings
 
     public static void CreateEmptySettings()
     {
-        SettingsModel emptySettings = new()
-        {
-            DestinationEmail = "",
-            CaseNumber = "",
-            NotifyEmail = false,
-            NotifyDesktop = false,
-            GrowToFit = false,
-            LastLink = "",
-            LastLinkDate = DateTime.MinValue
-        };
+        SettingsModel emptySettings = new();
 
         string serialized = JsonSerializer.Serialize(emptySettings);
 
@@ -79,10 +50,13 @@ public static class Settings
 
         SettingsModel settingsModel = new()
         {
-            DestinationEmail = deserialized.DestinationEmail,
             CaseNumber = deserialized.CaseNumber,
             NotifyDesktop = deserialized.NotifyDesktop,
             NotifyEmail = deserialized.NotifyEmail,
+            MailSettings = new()
+            {
+                MailTo = deserialized.MailSettings.MailTo
+            }
         };
 
         return settingsModel;
@@ -126,15 +100,60 @@ public static class Settings
 
         return false;
     }
+
+    public static void SetMailSettings(EmailSettings settings)
+    {
+        if (!File.Exists(_filePath))
+            CreateEmptySettings();
+
+        string jsonString = File.ReadAllText(_filePath);
+        SettingsModel deserialized = JsonSerializer.Deserialize<SettingsModel>(jsonString);
+
+        deserialized.MailSettings = settings;
+
+        string serialized = JsonSerializer.Serialize(deserialized);
+
+        File.WriteAllText(_filePath, serialized);
+    }
+
+    public static EmailSettings GetEmailSettings()
+    {
+        if (!File.Exists(_filePath))
+            CreateEmptySettings();
+
+        string jsonString = File.ReadAllText(_filePath);
+        SettingsModel deserialized = JsonSerializer.Deserialize<SettingsModel>(jsonString);
+
+        EmailSettings emailSettings = new()
+        {
+            MailFrom = deserialized.MailSettings.MailFrom,
+            MailTo = deserialized.MailSettings.MailTo,
+            Password = deserialized.MailSettings.Password,
+            PortNumber = deserialized.MailSettings.PortNumber,
+            SmtpAddress = deserialized.MailSettings.SmtpAddress,
+        };
+
+        return emailSettings;
+    }
 }
 
 public class SettingsModel
 {
-    public string DestinationEmail { get; set; } = "";
     public string CaseNumber { get; set; } = "";
     public bool NotifyEmail { get; set; } = false;
-    public bool NotifyDesktop { get; set; }
-    public bool GrowToFit { get; set; }
+    public bool NotifyDesktop { get; set; } = false;
+    public bool GrowToFit { get; set; } = false;
     public string LastLink { get; set; } = "";
-    public DateTime LastLinkDate { get; set; }
+    public DateTime LastLinkDate { get; set; } = DateTime.MinValue;
+    public EmailSettings MailSettings { get; set; } = new();
+}
+
+public class EmailSettings
+{
+    public string MailFrom { get; set; } = "";
+    public string MailTo { get; set; } = "";
+    public string Password { get; set; } = "";
+    public int PortNumber { get; set; } = 0;
+    public string SmtpAddress { get; set; } = "";
+    public bool EnableSsl { get; set; } = false;
 }
