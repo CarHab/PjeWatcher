@@ -5,32 +5,41 @@ using System.Net.Mail;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Watcher.Services;
 public class MailService
 {
+    private readonly string _updateString;
+    private EmailSettings _emailSettings;
 
-    //public async Task SendEmail()
-    //{
-    //    try
-    //    {
-    //        using MailMessage mail = new();
+    public MailService(string updateString)
+    {
+        _emailSettings = Settings.GetEmailSettings();
+        _updateString = updateString;
+    }
 
-    //        mail.From = new MailAddress(_emailFromAddress);
-    //        mail.To.Add(_emailToAddress);
-    //        mail.Subject = _subject;
-    //        mail.Body = _body;
-    //        mail.IsBodyHtml = true;
+    public async Task SendEmail()
+    {
+        try
+        {
+            using MailMessage mail = new();
 
-    //        using SmtpClient smtp = new(_smtpAddress, _portNumber);
-    //        smtp.Credentials = new NetworkCredential(_emailFromAddress, _password);
-    //        smtp.EnableSsl = _enableSSL;
+            mail.From = new MailAddress(_emailSettings.MailFrom);
+            mail.To.Add(_emailSettings.MailTo);
+            mail.Subject = "PJE Watcher - Nova Atualização";
+            mail.Body = $"<h2>{_updateString}</h2> <br> <a target='_blank' href='{Settings.GetLastLink()}'>Clique aqui para acessar o PJE</a>";
+            mail.IsBodyHtml = true;
 
-    //        await smtp.SendMailAsync(mail);
-    //    }
-    //    catch (Exception)
-    //    {
-    //        throw;
-    //    }
-    //}
+            using SmtpClient smtp = new(_emailSettings.SmtpAddress, _emailSettings.PortNumber);
+            smtp.Credentials = new NetworkCredential(_emailSettings.MailFrom, _emailSettings.Password);
+            smtp.EnableSsl = _emailSettings.EnableSsl;
+
+            await smtp.SendMailAsync(mail);
+        }
+        catch (Exception e)
+        {
+            throw;
+        }
+    }
 }

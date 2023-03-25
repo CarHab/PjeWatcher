@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,7 @@ public partial class InputWindow : Window
             Settings.CreateEmptySettings();
 
         NumberInput.Text = Settings.GetFields().CaseNumber;
+
         if (NumberInput.Text != "")
             StartButton.IsEnabled = true;
     }
@@ -52,6 +54,14 @@ public partial class InputWindow : Window
 
     private void StartButton_Click(object sender, RoutedEventArgs e)
     {
+        if (!Settings.AreEmailSettingsFilled() && Settings.NotifyEmail)
+        {
+            MessageBox.Show("Notificação por email está ativada mas o envio de emails não foi configurado.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            EmailConfigView emailConfigView = new();
+            emailConfigView.Show();
+            return;
+        }
+
         MainWindow mainWindow = new(NumberInput.Text, false);
         mainWindow.Show();
         Close();

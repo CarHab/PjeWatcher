@@ -1,4 +1,4 @@
-﻿<Window x:Class="Watcher.Views.InputWindow"
+<Window x:Class="Watcher.Views.InputWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -21,8 +21,8 @@
         </Grid.ColumnDefinitions>
 
         <DockPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
-            <Label DockPanel.Dock="Left"  VerticalAlignment="Center">N° Processo</Label>
-            <TextBox VerticalContentAlignment="Center" x:Name="NumberInput" VerticalAlignment="Center" Height="30" TextChanged="NumberInput_TextChanged"/>
+            <Label DockPanel.Dock="Left" VerticalAlignment="Center">N° Processo</Label>
+            <TextBox VerticalContentAlignment="Center" x:Name="NumberInput" VerticalAlignment="Center" Height="30" TextChanged="NumberInput_TextChanged" />
         </DockPanel>
 
         <DockPanel VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">

@@ -5,11 +5,11 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>search.ico</ApplicationIcon>
+    <ApplicationIcon>V3icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="search.ico" />
+    <Content Include="V3icon.ico" />
   </ItemGroup>
 
   <ItemGroup>

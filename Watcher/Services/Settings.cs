@@ -14,6 +14,10 @@ public static class Settings
     {
         if (!File.Exists(_filePath))
             CreateEmptySettings();
+
+        var fields = GetFields();
+        NotifyEmail = fields.NotifyEmail;
+        NotifyDesktop = fields.NotifyDesktop;
     }
 
     public static void SetCaseNumber(string caseNumber)
@@ -131,9 +135,24 @@ public static class Settings
             Password = deserialized.MailSettings.Password,
             PortNumber = deserialized.MailSettings.PortNumber,
             SmtpAddress = deserialized.MailSettings.SmtpAddress,
+            EnableSsl = deserialized.MailSettings.EnableSsl
         };
 
         return emailSettings;
+    }
+
+    public static bool AreEmailSettingsFilled()
+    {
+        string jsonString = File.ReadAllText(_filePath);
+        SettingsModel deserialized = JsonSerializer.Deserialize<SettingsModel>(jsonString);
+
+        if (deserialized.MailSettings.MailFrom == "") return false;
+        if (deserialized.MailSettings.MailTo == "") return false;
+        if (deserialized.MailSettings.Password == "") return false;
+        if (deserialized.MailSettings.PortNumber == 0) return false;
+        if (deserialized.MailSettings.SmtpAddress == "") return false;
+
+        return true;
     }
 }
 

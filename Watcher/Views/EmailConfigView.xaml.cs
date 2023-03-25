@@ -47,6 +47,7 @@ public partial class EmailConfigView : Window
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
         Settings.SetMailSettings(_emailSettings);
+        Close();
     }
 
     private void FromInput_TextChanged(object sender, TextChangedEventArgs e)
@@ -68,14 +69,13 @@ public partial class EmailConfigView : Window
     {
         _emailSettings.PortNumber = Convert.ToInt32(PortInput.Text);
     }
-
-    private void SSLCheckBox_Checked(object sender, RoutedEventArgs e)
-    {
-        _emailSettings.EnableSsl = SSLCheckBox.IsChecked ?? false;
-    }
-
     private void PasswordInput_LostFocus(object sender, RoutedEventArgs e)
     {
         _emailSettings.Password = PasswordInput.Password;
+    }
+
+    private void SSLCheckBox_Click(object sender, RoutedEventArgs e)
+    {
+        _emailSettings.EnableSsl = SSLCheckBox.IsChecked ?? false;
     }
 }

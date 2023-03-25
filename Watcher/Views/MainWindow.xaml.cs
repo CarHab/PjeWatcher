@@ -1,8 +1,9 @@
-﻿using System;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.DevTools.V109.CacheStorage;
+using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Threading;
 using Watcher.Services;
 
@@ -13,6 +14,8 @@ public partial class MainWindow : Window
     public Retriever? DataAccess { get; set; }
     public string CaseNumber { get; set; } = "";
     public DispatcherTimer? DispatcherTimer { get; set; } = null;
+    private bool _first = true;
+    private string _currentText = "";
 
     public MainWindow(string caseNumber, bool backgroundProcess)
     {
@@ -31,7 +34,7 @@ public partial class MainWindow : Window
         DispatcherTimer = new();
         DispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
         DispatcherTimer.Start();
-        DispatcherTimer.Interval = new TimeSpan(0, 1, 0);
+        DispatcherTimer.Interval = new TimeSpan(0, 0, 2);
     }
 
     private void DispatcherTimer_Tick(object sender, EventArgs e)
@@ -49,6 +52,14 @@ public partial class MainWindow : Window
         {
             string responseText = await DataAccess.GetText();
 
+            if (!_first && responseText != _currentText)
+            {
+                MailService mailService = new(responseText);
+                await mailService.SendEmail();
+            }
+
+            _currentText = responseText;
+            _first = false;
             string fullText = $"{currentTime} - {responseText}";
 
             Output.Text = fullText;

@@ -12,6 +12,6 @@
         x:Name="Root" ScrollViewer.VerticalScrollBarVisibility="Disabled" ResizeMode="CanMinimize"
         >
     <Grid>
-        <TextBlock VerticalAlignment="Center" x:Name="Output" FontSize="16" Padding="5 0 0 0"/>
+        <TextBlock VerticalAlignment="Center" x:Name="Output" FontSize="16" Padding="5 0 0 0" Width="450"/>
     </Grid>
 </Window>
