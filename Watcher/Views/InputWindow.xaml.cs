@@ -62,7 +62,7 @@ public partial class InputWindow : Window
             return;
         }
 
-        MainWindow mainWindow = new(NumberInput.Text, false);
+        MainWindow mainWindow = new(NumberInput.Text, true);
         mainWindow.Show();
         Close();
     }

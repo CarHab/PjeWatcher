@@ -9,8 +9,9 @@
         Topmost="True" 
         WindowStartupLocation="Manual"
         WindowStyle="None"
-        x:Name="Root" ScrollViewer.VerticalScrollBarVisibility="Disabled" ResizeMode="CanMinimize"
-        >
+        x:Name="Root"
+        ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+        ResizeMode="CanMinimize" StateChanged="Root_StateChanged" Loaded="Root_Loaded">
     <Grid>
         <TextBlock VerticalAlignment="Center" x:Name="Output" FontSize="16" Padding="5 0 0 0" Width="450"/>
     </Grid>
