@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.Notifications;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -25,8 +26,10 @@ public partial class MainWindow : Window
         if (backgroundProcess)
         {
             MyNotifyIcon = new System.Windows.Forms.NotifyIcon();
-            MyNotifyIcon.Icon = new System.Drawing.Icon(
-                            @".\V3icon.ico");
+
+            MyNotifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(
+             System.Reflection.Assembly.GetEntryAssembly().ManifestModule.Name);
+            MyNotifyIcon.Visible = true;
 
             MyNotifyIcon.MouseDoubleClick +=
                 new System.Windows.Forms.MouseEventHandler
@@ -120,6 +123,12 @@ public partial class MainWindow : Window
     private void Root_Loaded(object sender, RoutedEventArgs e)
     {
         WindowState = WindowState.Minimized;
+    }
+
+    private void Root_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+        if (e.ChangedButton == MouseButton.Left)
+            DragMove();
     }
 }
 
