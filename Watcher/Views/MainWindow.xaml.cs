@@ -1,6 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.Notifications;
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -18,23 +17,23 @@ public partial class MainWindow : Window
     private bool _first = true;
     private string _currentText = "";
     private NotifyIcon MyNotifyIcon;
+    private readonly bool _backgroundProcess;
 
     public MainWindow(string caseNumber, bool backgroundProcess)
     {
         InitializeComponent();
 
-        if (backgroundProcess)
-        {
-            MyNotifyIcon = new System.Windows.Forms.NotifyIcon();
+        _backgroundProcess = backgroundProcess;
 
-            MyNotifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(
-             System.Reflection.Assembly.GetEntryAssembly().ManifestModule.Name);
-            MyNotifyIcon.Visible = true;
+        MyNotifyIcon = new System.Windows.Forms.NotifyIcon();
 
-            MyNotifyIcon.MouseDoubleClick +=
-                new System.Windows.Forms.MouseEventHandler
-                    (MyNotifyIcon_MouseDoubleClick);
-        }
+        MyNotifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(
+         System.Reflection.Assembly.GetEntryAssembly().ManifestModule.Name);
+        MyNotifyIcon.Visible = true;
+
+        MyNotifyIcon.MouseDoubleClick +=
+            new System.Windows.Forms.MouseEventHandler
+                (MyNotifyIcon_MouseDoubleClick);
 
         Left = SystemParameters.WorkArea.Width - Width;
         Top = SystemParameters.WorkArea.Height - Height;
@@ -122,7 +121,8 @@ public partial class MainWindow : Window
 
     private void Root_Loaded(object sender, RoutedEventArgs e)
     {
-        WindowState = WindowState.Minimized;
+        if (_backgroundProcess)
+            WindowState = WindowState.Minimized;
     }
 
     private void Root_MouseDown(object sender, MouseButtonEventArgs e)

@@ -27,7 +27,7 @@
 
         <DockPanel VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
             <Label>Executar em segundo plano</Label>
-            <CheckBox VerticalAlignment="Center" ></CheckBox>
+            <CheckBox x:Name="BackgroundCheckbox" VerticalAlignment="Center" ></CheckBox>
         </DockPanel>
 
         <DockPanel LastChildFill="False" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" MinHeight="30">

@@ -62,7 +62,9 @@ public partial class InputWindow : Window
             return;
         }
 
-        MainWindow mainWindow = new(NumberInput.Text, true);
+        bool backgroundEnabled = BackgroundCheckbox.IsChecked ?? false;
+
+        MainWindow mainWindow = new(NumberInput.Text, backgroundEnabled);
         mainWindow.Show();
         Close();
     }
