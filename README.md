@@ -1,2 +1,2 @@
 # PjeWatcher
-Programa para monitorar processos no PJE do TRF-1.
+Programa feito com WPF para monitorar processos no PJE do TRF-1.
