@@ -67,7 +67,11 @@ public partial class EmailConfigView : Window
 
     private void PortInput_TextChanged(object sender, TextChangedEventArgs e)
     {
-        _emailSettings.PortNumber = Convert.ToInt32(PortInput.Text);
+        int n;
+        if (!String.IsNullOrEmpty(PortInput.Text) && int.TryParse(PortInput.Text, out n))
+            _emailSettings.PortNumber = n;
+        else
+            PortInput.Text = "";
     }
     private void PasswordInput_LostFocus(object sender, RoutedEventArgs e)
     {

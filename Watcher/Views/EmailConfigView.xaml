@@ -19,34 +19,34 @@
 
         <StackPanel Margin="5,0,5,0"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="0">
             <Label>Remetente</Label>
-            <TextBox x:Name="FromInput" Height="30" VerticalContentAlignment="Center" TextChanged="FromInput_TextChanged"></TextBox>
+            <TextBox x:Name="FromInput" Height="30" VerticalContentAlignment="Center" TextChanged="FromInput_TextChanged" TabIndex="1"></TextBox>
 
             <Label>Destinatário</Label>
-            <TextBox x:Name="ToInput"  Height="30" VerticalContentAlignment="Center" TextChanged="ToInput_TextChanged"></TextBox>
+            <TextBox x:Name="ToInput"  Height="30" VerticalContentAlignment="Center" TextChanged="ToInput_TextChanged" TabIndex="3"></TextBox>
         </StackPanel>
 
         <StackPanel Margin="5,0,5,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1">
             <Label>Senha Remetente</Label>
-            <PasswordBox x:Name="PasswordInput" Height="30" VerticalContentAlignment="Center" LostFocus="PasswordInput_LostFocus"></PasswordBox>
+            <PasswordBox x:Name="PasswordInput" Height="30" VerticalContentAlignment="Center" LostFocus="PasswordInput_LostFocus" TabIndex="3"></PasswordBox>
 
             <Label>SMTP</Label>
-            <TextBox x:Name="SMTPInput"  Height="30" VerticalContentAlignment="Center" TextChanged="SMTPInput_TextChanged"></TextBox>
+            <TextBox x:Name="SMTPInput"  Height="30" VerticalContentAlignment="Center" TextChanged="SMTPInput_TextChanged" TabIndex="4"></TextBox>
             
         </StackPanel>
 
         <StackPanel Margin="5,-10,5,0" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0">
             <Label>Porta</Label>
-            <TextBox x:Name="PortInput"  Height="30" VerticalContentAlignment="Center" TextChanged="PortInput_TextChanged"></TextBox>
-            
+            <TextBox x:Name="PortInput"  Height="30" VerticalContentAlignment="Center" TextChanged="PortInput_TextChanged" TabIndex="5"/>
+
             <DockPanel Margin="0,10,0,0">
                 <Label>Habilitar SSL</Label>
-                <CheckBox x:Name="SSLCheckBox" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SSLCheckBox_Click"/>
+                <CheckBox x:Name="SSLCheckBox" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SSLCheckBox_Click" TabIndex="6"/>
             </DockPanel>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button x:Name="HelpButton" Width="100" Height="30" Click="HelpButton_Click">Ajuda</Button>
-            <Button x:Name="SaveButton" Width="100" Height="30" Margin="0,10,0,0" Click="SaveButton_Click">Salvar</Button>
+            <Button x:Name="SaveButton" Width="100" Height="30" Margin="0,10,0,0" Click="SaveButton_Click" TabIndex="7">Salvar</Button>
         </StackPanel>
     </Grid>
 </Window>
