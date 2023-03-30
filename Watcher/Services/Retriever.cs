@@ -48,7 +48,7 @@ public class Retriever
             var submitButton = driver.FindElement(By.Id("fPP:searchProcessos"));
             submitButton.Click();
 
-            var linkElement = driver.FindElement(By.XPath("//*[@id=\"fPP:processosTable:8964583:j_id229\"]/a"));
+            var linkElement = driver.FindElement(By.XPath("/html/body/div[6]/div/div/div/div[2]/form/div[2]/div/table/tbody/tr/td[2]/a"));
 
             var linkNumber = linkElement.GetAttribute("onclick").Split("=")[1].Split("'")[0];
 

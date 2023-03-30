@@ -20,6 +20,7 @@ public partial class MainWindow : Window
     private string _currentText = "";
     private NotifyIcon MyNotifyIcon;
     private readonly bool _backgroundProcess;
+    private readonly int _interval;
 
     public MainWindow(string caseNumber, bool backgroundProcess)
     {
@@ -39,6 +40,7 @@ public partial class MainWindow : Window
 
         Left = SystemParameters.WorkArea.Width - Width;
         Top = SystemParameters.WorkArea.Height - Height;
+        _interval = Settings.GetInterval();
 
         CaseNumber = caseNumber;
         Start();
@@ -59,7 +61,7 @@ public partial class MainWindow : Window
         DispatcherTimer = new();
         DispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
         DispatcherTimer.Start();
-        DispatcherTimer.Interval = new TimeSpan(0, 1, 0);
+        DispatcherTimer.Interval = new TimeSpan(0, _interval, 0);
     }
 
     private void DispatcherTimer_Tick(object sender, EventArgs e)

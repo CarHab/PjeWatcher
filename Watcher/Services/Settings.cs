@@ -141,6 +141,14 @@ public static class Settings
         return emailSettings;
     }
 
+    public static int GetInterval()
+    {
+        string jsonString = File.ReadAllText(_filePath);
+        SettingsModel deserialized = JsonSerializer.Deserialize<SettingsModel>(jsonString);
+
+        return deserialized.PollInterval;
+    }
+
     public static bool AreEmailSettingsFilled()
     {
         string jsonString = File.ReadAllText(_filePath);
@@ -163,6 +171,7 @@ public class SettingsModel
     public bool NotifyDesktop { get; set; } = false;
     public bool GrowToFit { get; set; } = false;
     public string LastLink { get; set; } = "";
+    public int PollInterval { get; set; } = 5;
     public DateTime LastLinkDate { get; set; } = DateTime.MinValue;
     public EmailSettings MailSettings { get; set; } = new();
 }
