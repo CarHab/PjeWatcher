@@ -92,7 +92,7 @@ public class Retriever
             HttpClient client = new();
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13;
             client.DefaultRequestHeaders.Accept.Clear();
-            var response = await client.GetStringAsync(_url);
+            string response = await client.GetStringAsync(_url);
             return response;
         }
         catch (Exception e)
@@ -108,7 +108,7 @@ public class Retriever
             HtmlDocument htmlDoc = new();
             htmlDoc.LoadHtml(html);
 
-            HtmlNode htmlBody = htmlDoc.DocumentNode.SelectSingleNode("//*[@id=\"j_id134:processoEvento:0:j_id498\"]");
+            HtmlNode htmlBody = htmlDoc.DocumentNode.SelectSingleNode("//*[@id=\"j_id135:processoEvento:0:j_id499\"]");
 
             string decodedText = WebUtility.HtmlDecode(htmlBody.InnerText);
             return decodedText;
